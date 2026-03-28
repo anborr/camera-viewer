@@ -3,6 +3,7 @@
 #include <QMessageBox>
 #include "CameraPermission.h"
 #include "CameraWorker.h"
+#include "CameraSettingsDialog.h"
 #include "CameraWidget.h"
 
 int main(int argc, char *argv[])
@@ -33,7 +34,13 @@ int main(int argc, char *argv[])
 
     int deviceIndex = devices.indexOf(selected);
 
-    CameraWidget widget(deviceIndex);
+    CameraSettingsDialog settingsDialog(deviceIndex, selected);
+    if (settingsDialog.exec() != QDialog::Accepted)
+        return 0;
+
+    CameraSettings settings = settingsDialog.settings();
+
+    CameraWidget widget(deviceIndex, settings);
     widget.show();
 
     return app.exec();

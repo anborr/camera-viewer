@@ -2,8 +2,8 @@
 #include <QDebug>
 #include <QRegularExpression>
 
-CameraWorker::CameraWorker(int deviceIndex, QObject *parent)
-    : QObject(parent), m_deviceIndex(deviceIndex)
+CameraWorker::CameraWorker(int deviceIndex, const CameraSettings &settings, QObject *parent)
+    : QObject(parent), m_deviceIndex(deviceIndex), m_settings(settings)
 {
     connect(&m_timer, &QTimer::timeout, this, &CameraWorker::grabFrame);
 }
@@ -78,8 +78,9 @@ bool CameraWorker::open()
     }
 
     AVDictionary *options = nullptr;
-    av_dict_set(&options, "framerate", "30", 0);
-    av_dict_set(&options, "pixel_format", "uyvy422", 0);
+    av_dict_set(&options, "framerate", m_settings.framerate.toUtf8().constData(), 0);
+    av_dict_set(&options, "video_size", m_settings.resolution.toUtf8().constData(), 0);
+    av_dict_set(&options, "pixel_format", m_settings.pixelFormat.toUtf8().constData(), 0);
 
     m_formatCtx = avformat_alloc_context();
     QString deviceStr = QString::number(m_deviceIndex);

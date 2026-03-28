@@ -4,6 +4,7 @@
 #include <QImage>
 #include <QStringList>
 #include <QTimer>
+#include "CameraSettings.h"
 
 extern "C" {
 #include <libavformat/avformat.h>
@@ -16,7 +17,7 @@ extern "C" {
 class CameraWorker : public QObject {
     Q_OBJECT
 public:
-    explicit CameraWorker(int deviceIndex, QObject *parent = nullptr);
+    explicit CameraWorker(int deviceIndex, const CameraSettings &settings, QObject *parent = nullptr);
     ~CameraWorker();
 
     static QStringList listDevices();
@@ -35,6 +36,7 @@ private:
     void cleanup();
 
     int m_deviceIndex;
+    CameraSettings m_settings;
     QTimer m_timer;
     AVFormatContext *m_formatCtx = nullptr;
     AVCodecContext *m_codecCtx = nullptr;

@@ -4,13 +4,19 @@
 #include <QPainter>
 #include <QMessageBox>
 
-CameraWidget::CameraWidget(int deviceIndex, QWidget *parent)
+CameraWidget::CameraWidget(int deviceIndex, const CameraSettings &settings, QWidget *parent)
     : QWidget(parent)
 {
     setWindowTitle("Camera Viewer");
-    resize(1280, 720);
 
-    m_worker = new CameraWorker(deviceIndex, this);
+    // Parse resolution for initial window size
+    QStringList res = settings.resolution.split('x');
+    if (res.size() == 2)
+        resize(res[0].toInt(), res[1].toInt());
+    else
+        resize(1280, 720);
+
+    m_worker = new CameraWorker(deviceIndex, settings, this);
     connect(m_worker, &CameraWorker::frameReady, this, &CameraWidget::updateFrame);
     connect(m_worker, &CameraWorker::errorOccurred, this, &CameraWidget::handleError);
     m_worker->open();

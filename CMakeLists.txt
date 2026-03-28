@@ -19,6 +19,7 @@ add_executable(camera-viewer MACOSX_BUNDLE
     main.cpp
     CameraWorker.cpp
     CameraWidget.cpp
+    CameraSettingsDialog.cpp
     CameraPermission.mm
 )
 

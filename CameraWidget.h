@@ -2,13 +2,14 @@
 
 #include <QWidget>
 #include <QImage>
+#include "CameraSettings.h"
 
 class CameraWorker;
 
 class CameraWidget : public QWidget {
     Q_OBJECT
 public:
-    explicit CameraWidget(int deviceIndex, QWidget *parent = nullptr);
+    explicit CameraWidget(int deviceIndex, const CameraSettings &settings, QWidget *parent = nullptr);
     ~CameraWidget();
 
 protected:
