@@ -1,0 +1,5 @@
+/Users/andre/code/camera-viewer/build/CMakeFiles/camera-viewer.dir
+/Users/andre/code/camera-viewer/build/CMakeFiles/edit_cache.dir
+/Users/andre/code/camera-viewer/build/CMakeFiles/rebuild_cache.dir
+/Users/andre/code/camera-viewer/build/CMakeFiles/camera-viewer_autogen_timestamp_deps.dir
+/Users/andre/code/camera-viewer/build/CMakeFiles/camera-viewer_autogen.dir
